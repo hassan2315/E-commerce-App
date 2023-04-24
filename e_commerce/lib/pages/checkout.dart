@@ -24,67 +24,90 @@ class CheckOut extends StatelessWidget {
         children: [
           SingleChildScrollView(
             child: SizedBox(
-              height: 550,
-              child: items.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Lottie.asset(
-                            'Assets/animations/137836-add-to-cart.json',
-                            height: 300,
-                            width: 500,
-                          ),
-                          const Text(
-                            'No Items Yet',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: Carttt.selectedProducts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          child: Card(
-                            elevation: 4, // add elevation for a 3D effect
-                            color: Colors
-                                .white, // set the background color to white
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: const BorderSide(
-                                  color: Colors.grey, width: 1),
+                height: 550,
+                child: items.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset(
+                              'Assets/animations/137836-add-to-cart.json',
+                              height: 300,
+                              width: 500,
                             ),
-                            child: ListTile(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              title: Text(
-                                Carttt.selectedProducts[index].name,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                            const Text(
+                              'No Items Yet',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemCount: Carttt.selectedProducts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final product = Carttt.selectedProducts[index];
+
+                          return GestureDetector(
+                            child: Card(
+                              elevation: 4,
+                              color: Colors.white,
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
                                 ),
                               ),
-                              subtitle: Text(
-                                  "${Carttt.selectedProducts[index].price} - ${Carttt.selectedProducts[index].location}"),
-                              leading: CircleAvatar(
-                                radius: 28,
-                                backgroundImage: AssetImage(
-                                    Carttt.selectedProducts[index].imgPath),
+                              child: ListTile(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                title: Text(
+                                  product.name,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                    "${product.price} - ${product.location}"),
+                                leading: CircleAvatar(
+                                  radius: 28,
+                                  backgroundImage: AssetImage(product.imgPath),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Carttt.decrementQuantity(product);
+                                      },
+                                      icon: const Icon(Icons.remove),
+                                    ),
+                                    Text(
+                                      '${product.quantity}',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Carttt.incrementQuantity(product);
+                                      },
+                                      icon: const Icon(Icons.add),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Carttt.delete(product);
+                                      },
+                                      icon: const Icon(Icons.delete_outlined),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    Carttt.delete(
-                                        Carttt.selectedProducts[index]);
-                                  },
-                                  icon: const Icon(Icons.delete_outlined)),
                             ),
-                          ),
-                        );
-                      }),
-            ),
+                          );
+                        },
+                      )),
           ),
           Center(
             child: ConstrainedBox(

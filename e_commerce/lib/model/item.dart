@@ -4,6 +4,7 @@ class Item {
   String location;
   String name;
   bool isFavorite;
+  late int _quantity;
 
   Item({
     required this.imgPath,
@@ -11,9 +12,17 @@ class Item {
     required this.location,
     required this.name,
     this.isFavorite = false,
-  });
+  }) {
+    _quantity = 1;
+  }
 
   get id => null;
+  int get quantity => _quantity;
+
+  // add a setter for quantity
+  set quantity(int value) {
+    _quantity = value;
+  }
 }
 
 final List<Item> items = [
