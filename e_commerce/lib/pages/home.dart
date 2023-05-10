@@ -175,8 +175,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Positioned(
-                            top: 177,
-                            bottom: 0,
+                            bottom: -10,
                             left: 0,
                             right: 0,
                             child: Column(
@@ -195,7 +194,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
@@ -210,9 +209,22 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                const SizedBox(height: 5),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Carttt.add(_searchedItems[index]);
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_circle_outline,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
