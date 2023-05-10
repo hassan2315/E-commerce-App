@@ -8,7 +8,9 @@ import '../shared/appbar.dart';
 import '../shared/colors.dart';
 
 class CheckOut extends StatelessWidget {
-  const CheckOut({Key? key}) : super(key: key);
+  const CheckOut({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class CheckOut extends StatelessWidget {
                               color: Colors.white,
                               margin: const EdgeInsets.symmetric(vertical: 8),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(20),
                                 side: const BorderSide(
                                   color: Colors.grey,
                                   width: 1,

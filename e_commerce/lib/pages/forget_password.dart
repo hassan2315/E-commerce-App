@@ -60,7 +60,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(33.0),
+          padding: const EdgeInsets.all(40.0),
           child: Form(
             key: _formKey,
             child: Column(

@@ -27,12 +27,12 @@ class Item {
 
 final List<Item> items = [
   Item(
-      name: "item1",
+      name: "Item1",
       price: 12.99,
       imgPath: "Assets/p1.jpg",
       location: "Armani shop"),
   Item(
-      name: "item2",
+      name: "Item2",
       price: 13.99,
       imgPath: "Assets/p2.jpg",
       location: "American shop"),

@@ -1,10 +1,10 @@
-import 'package:e_commerce/model/item.dart';
-import 'package:e_commerce/provider/favourite1.dart';
-import 'package:e_commerce/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../model/item.dart';
+import '../provider/favourite1.dart';
+import '../shared/colors.dart';
 import 'detalis_screen.dart';
 
 class FavouriteScreen extends StatelessWidget {
@@ -32,8 +32,8 @@ class FavouriteScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset(
-                  'Assets/animations/70332-no-data-animation.json', // replace with your animation file
-                  height: 400,
+                  'Assets/animations/129489-heart-filled.json',
+                  height: 200,
                   width: 500,
                 ),
                 const SizedBox(height: 16),
@@ -43,91 +43,80 @@ class FavouriteScreen extends StatelessWidget {
                 ),
               ],
             )
-          : GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
-              itemCount: items.length,
+          : ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               itemBuilder: (BuildContext context, int index) {
-                return Stack(
-                  children: [
-                    GestureDetector(
+                final item = items[index];
+                return Card(
+                  color: Colors.grey.shade200.withOpacity(0.9),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25))),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Details(product: item),
+                        ),
+                      );
+                    },
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        item.imgPath,
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 80,
+                      ),
+                    ),
+                    title: Text(
+                      item.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 4),
+                        Text(
+                          '\$${item.price}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green,
+                          ),
+                        ),
+                        Text(
+                          item.location,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                Details(product: items[index]),
-                          ),
-                        );
+                        _handleDelete(item);
                       },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                            color: BTNblue,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  items[index].imgPath,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    items[index].name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '\$${items[index].price}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: Icon(
+                        Icons.favorite,
+                        color: item.isFavorite ? Colors.red : Colors.grey,
                       ),
                     ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: GestureDetector(
-                        onTap: () {
-                          _handleDelete(items[index]);
-                        },
-                        child: Icon(
-                          Icons.favorite,
-                          color: items[index].isFavorite
-                              ? Colors.red
-                              : Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 );
               },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                endIndent: 7,
+                indent: 7,
+                thickness: 2,
+              ),
+              itemCount: items.length,
             ),
     );
   }

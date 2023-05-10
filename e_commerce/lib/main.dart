@@ -34,25 +34,26 @@ class MyApp extends StatelessWidget {
         }),
       ],
       child: MaterialApp(
-          title: "myApp",
-          debugShowCheckedModeBanner: false,
-          home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                    child: CircularProgressIndicator(
-                  color: Colors.white,
-                ));
-              } else if (snapshot.hasError) {
-                return showSnackBar(context, "Something went wrong");
-              } else if (snapshot.hasData) {
-                return const VerifyEmailPage();
-              } else {
-                return const SplashScreen();
-              }
-            },
-          )),
+        title: "myApp",
+        debugShowCheckedModeBanner: false,
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.white,
+              ));
+            } else if (snapshot.hasError) {
+              return showSnackBar(context, "Something went wrong");
+            } else if (snapshot.hasData) {
+              return const VerifyEmailPage();
+            } else {
+              return const SplashScreen();
+            }
+          },
+        ),
+      ),
     );
   }
 }

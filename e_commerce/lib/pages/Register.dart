@@ -381,7 +381,7 @@ class _RegisterState extends State<Register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Do not have an account?",
+                      const Text("Already have an account?",
                           style: TextStyle(fontSize: 18)),
                       TextButton(
                           onPressed: () {
